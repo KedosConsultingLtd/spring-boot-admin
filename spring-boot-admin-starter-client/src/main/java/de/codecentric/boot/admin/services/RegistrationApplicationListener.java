@@ -29,6 +29,8 @@ import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;
 
+import javax.annotation.PostConstruct;
+
 /**
  * Listener responsible for starting and stopping the registration task when the application is
  * ready.
@@ -60,8 +62,7 @@ public class RegistrationApplicationListener {
 		this(registrator, Executors.newSingleThreadScheduledExecutor());
 	}
 
-	@EventListener
-	@Order(Ordered.LOWEST_PRECEDENCE)
+	@PostConstruct
 	public void onApplicationReady(ApplicationReadyEvent event) {
 		if (autoRegister) {
 			startRegisterTask();
